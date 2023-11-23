@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@include('layouts.alaert')
+@include('layouts.alert')
 @section('content')
     <div class="pagetitle">
         <h1>List Of Car</h1>

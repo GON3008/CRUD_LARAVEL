@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@include('layouts.alaert')
+@include('layouts.alert')
 
 @section('content')
     <div class="pagetitle">
