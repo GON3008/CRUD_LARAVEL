@@ -48,7 +48,7 @@
                                         <td>{{ $item->id }}</td>
                                         <td>{{ $item->name }}</td>
                                         <td>
-                                            <img src="{{ asset($item->img) }}" style="width: 100px">
+                                            <img src="{{ \Storage::url($item->img) }}" style="width: 100px">
                                         </td>
                                         <td>{{ $item->brand }}</td>
                                         <td> {{ $item->is_active ? 'Active' : 'In Active' }}</td>
