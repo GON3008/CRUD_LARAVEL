@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@include('layouts.alaert')
 
 @section('content')
     <div class="pagetitle">
@@ -11,11 +12,11 @@
         </nav>
     </div>
 
-    @if (\Session::has('msg'))
+    {{-- @if (\Session::has('msg'))
         <div class="alert alert-success">
             {{ \Session::get('msg') }}
         </div>
-    @endif
+    @endif --}}
 
     <div class="container">
         <form class="" action="{{ route('admin.products.store') }}" method="post" enctype="multipart/form-data">

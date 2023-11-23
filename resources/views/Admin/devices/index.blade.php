@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@include('layouts.alaert')
 
 @section('content')
     <div class="pagetitle">
@@ -11,11 +12,11 @@
         </nav>
     </div>
 
-    @if (\Session::has('msg'))
+    {{-- @if (\Session::has('msg'))
         <div class="alert alert-success">
             {{ \Session::get('msg') }}
         </div>
-    @endif
+    @endif --}}
 
     <section class="section">
         <div class="row">
@@ -49,7 +50,7 @@
                                         <td>{{ $item->id }}</td>
                                         <td>{{ $item->name }}</td>
                                         <td>
-                                            <img src="{{ asset($item->img) }}" style="width: 100px">
+                                            <img src="{{ \Storage::url($item->img) }}" width="100px" alt="">
                                         </td>
                                         <td>{{ $item->serial }}</td>
                                         <td>{{ $item->model }}</td>

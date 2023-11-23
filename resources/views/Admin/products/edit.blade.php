@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@include('layouts.alaert')
 
 @section('content')
     <div class="pagetitle">
@@ -11,11 +12,11 @@
         </nav>
     </div>
 
-    @if (\Session::has('msg'))
+    {{-- @if (\Session::has('msg'))
         <div class="alert alert-success">
             {{ \Session::get('msg') }}
         </div>
-    @endif
+    @endif --}}
 
     <div class="container">
         <form action="{{ route('admin.products.update', $product) }}" method="post" enctype="multipart/form-data">
@@ -50,6 +51,7 @@
             <div class="">
                 <label class="img">Upload Image</label>
                 <input class="form-control" id="img" name="img" type="file" />
+                <img src="{{ \Storage::url($product->img) }}" width="100px" alt="">
                 @error('img')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror

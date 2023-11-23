@@ -64,38 +64,36 @@ class StudentController extends Controller
 
     public function update(Request $request, Student $student)
     {
-        request()->validate([
+        $request->validate([
             'name' => ['required', 'max:100', Rule::unique('students')->ignore($student->id)],
-            'code' => ['required', 'max:10', 'unique:students,code'],
-            'date_of_birth' => ['date', 'nullable'],
-            'img' => ['image', 'max:255', 'nullable', 'required_if:img,null'],
-            'is_active' => [
-                'required',
-                Rule::in([
-                    Student::Active,
-                    Student::IsActive,
-                ]),
-            ],
+            'code' => ['required', 'max:10', Rule::unique('students', 'code')->ignore($student->id)],
+            'date_of_birth' => ['nullable', 'date'],
+            'img' => ['nullable', 'image', 'max:2048'], // Adjusted the max size
         ]);
 
-        $data = $request->except(['img']);
+        $data = $request->except('img');
 
         if ($request->hasFile('img')) {
+            // Handle image upload
             $data['img'] = Storage::put(self::PATH_UPLOAD, $request->file('img'));
 
-            $oldPathImg = $student->img;
-
-            $student->update($data);
-
-            if (Storage::exists($oldPathImg)) {
-                Storage::delete($oldPathImg);
+            // Delete old image if it exists
+            if (Storage::exists($student->img)) {
+                Storage::delete($student->img);
             }
-        } else {
-            $student->update($data);
         }
+
+        // Toggle is_active status
+        $student->is_active = ($student->is_active == Student::Active) ? Student::IsActive : Student::Active;
+
+        // Update student data
+        $student->update($data);
 
         return back()->with('msg', 'Thao tác thành công');
     }
+
+
+
 
 
 

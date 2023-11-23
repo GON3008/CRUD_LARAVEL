@@ -1,21 +1,22 @@
 @extends('layouts.master')
+@include('layouts.alaert')
 
 @section('content')
     <div class="pagetitle">
         <h1>List Of Car</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.students.index') }}">Home</a></li>
                 <li class="breadcrumb-item active">List Of Car</li>
             </ol>
         </nav>
     </div>
 
-    @if (\Session::has('msg'))
+    {{-- @if (\Session::has('msg'))
         <div class="alert alert-success">
             {{ \Session::get('msg') }}
         </div>
-    @endif
+    @endif --}}
 
     <div class="container">
         <form action="{{ route('admin.students.update', $student) }}" method="post" enctype="multipart/form-data">
@@ -41,6 +42,7 @@
             <div class="">
                 <label class="img">Upload Image</label>
                 <input class="form-control" id="img" name="img" type="file" />
+                <img src="{{ \Storage::url($student->img) }}" width="100px" alt="">
             </div>
 
             <div class="py-4">

@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@include('layouts.alaert')
 
 @section('content')
     <div class="pagetitle">
@@ -11,11 +12,11 @@
         </nav>
     </div>
 
-    @if (\Session::has('msg'))
+    {{-- @if (\Session::has('msg'))
         <div class="alert alert-success">
             {{ \Session::get('msg') }}
         </div>
-    @endif
+    @endif --}}
 
     <section class="section">
         <div class="row">
@@ -27,7 +28,6 @@
                             <h5 class="card-title">Datatables</h5>
                             {{-- <a href="{{ route('admin.cars.create') }}">
                                 <i class="bi bi-plus-circle-fill"></i> Add</a> --}}
-
                         </div>
 
                         <!-- Table with stripped rows -->
@@ -50,10 +50,26 @@
                                         <td>{{ $item->code }}</td>
                                         <td>{{ $item->name }}</td>
                                         <td>
-                                            <img src="{{ asset($item->img) }}" style="width: 100px">
+                                            <img src="{{ \Storage::url($item->img) }}" width="100px" alt="">
                                         </td>
                                         <td>{{ $item->date_of_birth }}</td>
-                                        <td> {{ $item->is_active ? 'Active' : 'In Active' }}</td>
+                                        <td>
+                                            <div class="form-check form-switch">
+                                                <div class="form-check form-switch">
+                                                    <form action="{{ route('admin.students.update', $item) }}" method="POST" id="status-form-{{ $item->id }}">
+                                                        @csrf
+                                                        @method('PUT')
+                                                
+                                                        <input class="form-check-input" type="checkbox" name="is_active"
+                                                            value="{{ $item->is_active == \App\Models\Student::Active ? \App\Models\Student::IsActive : \App\Models\Student::Active }}"
+                                                            {{ $item->is_active == \App\Models\Student::Active ? 'checked' : '' }}
+                                                            onclick="document.getElementById('status-form-{{ $item->id }}').submit();">
+                                                
+                                                    </form>
+                                                </div>
+                                                
+                                            </div>
+                                        </td>
                                         <td class="">
                                             <span>
                                                 <a href="{{ route('admin.students.edit', $item) }}">
@@ -63,7 +79,8 @@
 
                                             <span>
                                                 <form class="d-inline"
-                                                    action="{{ route('admin.students.destroy', $item->id) }}" method="post">
+                                                    action="{{ route('admin.students.destroy', $item->id) }}"
+                                                    method="post">
                                                     @csrf
                                                     @method('DELETE')
 

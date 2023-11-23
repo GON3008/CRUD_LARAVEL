@@ -32,4 +32,5 @@ Route::prefix('admin')->as('admin.')->group(function () {
     Route::resource('devices', DeviceController::class);
     Route::resource('products', ProductController::class);
     Route::resource('students', StudentController::class);
+    Route::put('/students/update-is_active/{student}', 'StudentController@updateIsActive')->name('students.update-is_active');
 });
