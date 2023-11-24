@@ -5,7 +5,7 @@
         <h1>List Of Car</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.students.index') }}">Home</a></li>
                 <li class="breadcrumb-item active">List Of Car</li>
             </ol>
         </nav>
