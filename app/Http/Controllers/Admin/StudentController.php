@@ -109,7 +109,7 @@ class StudentController extends Controller
 
             return back()->with('msg', 'Thao tác thành công');
         } catch (\Exception $e) {
-            return back()->with('error', 'Error deleting data: ' . $e->getMessage());
+            return back()->with('msg', 'Error deleting data: ' . $e->getMessage());
         }
     }
 

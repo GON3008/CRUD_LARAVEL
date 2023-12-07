@@ -47,6 +47,17 @@
             </div>
 
             <div class="py-4">
+                <label class="">Category</label>
+                <div class="">
+                  <select class="form-select" name="category_id" id="category_id" aria-label="Default select example">
+                    @foreach ($categories as $id => $name)
+                        <option value="{{ $id }}">{{ $id }} - {{ $name }}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+
+            <div class="py-4">
                 <label class="is_active">Is Active:</label>
                 <div class="form-check">
                     <input type="radio" value="{{ \App\Models\Car::Active }}" name="is_active" id="is_active-1">

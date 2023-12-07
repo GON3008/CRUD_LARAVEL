@@ -9,15 +9,23 @@ class Car extends Model
 {
     use HasFactory;
 
+
     const Active = 1;
 
     const IsActive = 0;
 
     protected $fillable = [
+        'category_id',
         'name',
         'brand',
         'img',
         'description',
         'is_active',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
 }

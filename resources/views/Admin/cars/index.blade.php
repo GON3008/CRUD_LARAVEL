@@ -39,6 +39,7 @@
                                     <th>Name</th>
                                     <th>Image</th>
                                     <th>Brand</th>
+                                    <th>Category</th>
                                     <th data-type="" data-format="">Is Active</th>
                                     <th>Action</th>
                                 </tr>
@@ -52,6 +53,7 @@
                                             <img src="{{ \Storage::url($item->img) }}" style="width: 100px">
                                         </td>
                                         <td>{{ $item->brand }}</td>
+                                        <td>{{ $item->category->name }}</td>
                                         <td> {{ $item->is_active ? 'Active' : 'In Active' }}</td>
                                         <td class="">
                                             <span>

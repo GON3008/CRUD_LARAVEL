@@ -7,6 +7,7 @@ use App\Models\Device;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+use App\Models\Category;
 
 class DeviceController extends Controller
 {
@@ -15,14 +16,20 @@ class DeviceController extends Controller
 
     public function index()
     {
-        $data = Device::query()->latest()->paginate(5);
+        $data = Device::query()->with('category')->paginate(5);
 
         return view(self::PATH_VIEW . __FUNCTION__, compact('data'));
     }
 
     public function create()
     {
-        return view(self::PATH_VIEW . __FUNCTION__);
+        $categories = Category::query()
+            ->latest()
+            ->pluck('name', 'id')
+            ->where('is_active', 1)
+            ->all();
+
+        return view(self::PATH_VIEW . __FUNCTION__, compact('categories'));
     }
 
     public function store()
@@ -62,7 +69,13 @@ class DeviceController extends Controller
 
     public function edit(Device $device)
     {
-        return view(self::PATH_VIEW . __FUNCTION__, compact('device'));
+        $categories = Category::query()
+            ->latest()
+            ->pluck('name', 'id')
+            ->where('is_active', 1)
+            ->all();
+
+        return view(self::PATH_VIEW . __FUNCTION__, compact('device', 'categories'));
     }
 
     public function update(Request $request, Device $device)
@@ -123,6 +136,6 @@ class DeviceController extends Controller
 
     public function deleteMany()
     {
-
+        //
     }
 }

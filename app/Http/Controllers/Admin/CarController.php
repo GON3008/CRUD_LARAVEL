@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Car;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
@@ -15,14 +16,18 @@ class CarController extends Controller
 
     public function index()
     {
-        $data = Car::query()->latest()->paginate(5);
+        $data = Car::query()->with('category')->paginate(5);
 
         return view(self::PATH_VIEW . __FUNCTION__, compact('data'));
     }
 
     public function create()
     {
-        return view(self::PATH_VIEW . __FUNCTION__);
+        $categories = Category::query()
+            ->latest()
+            ->pluck('name', 'id')
+            ->all();
+        return view(self::PATH_VIEW . __FUNCTION__, compact('categories'));
     }
 
     public function store()
@@ -60,7 +65,13 @@ class CarController extends Controller
 
     public function edit(Car $car)
     {
-        return view(self::PATH_VIEW . __FUNCTION__, compact('car'));
+        $categories = Category::query()
+            ->latest()
+            ->pluck('name', 'id')
+            ->where('is_active', 1)
+            ->all();
+
+        return view(self::PATH_VIEW . __FUNCTION__, compact('car', 'categories'));
     }
 
     public function update(Request $request, Car $car)
@@ -121,6 +132,6 @@ class CarController extends Controller
 
     public function deleteMany()
     {
-
+        //
     }
 }

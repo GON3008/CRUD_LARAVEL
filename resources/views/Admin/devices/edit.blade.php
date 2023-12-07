@@ -20,8 +20,7 @@
 
 
     <div class="container">
-        <form class="" action="{{ route('admin.devices.update', $device) }}" method="post"
-            enctype="multipart/form-data">
+        <form class="" action="{{ route('admin.devices.update', $device) }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -59,6 +58,18 @@
                 @error('img')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Category</label>
+                <div class="col-sm-10">
+                    <select class="form-select" id="category_id" aria-label="Default select example">
+                        @foreach ($categories as $id => $name)
+                            <option value="{{ $id }}"{{ $car->category_id == $id ? ' selected' : '' }}>
+                                {{ $id }} - {{ $name }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
 
             <div class="py-4">

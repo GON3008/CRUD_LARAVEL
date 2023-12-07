@@ -3,11 +3,11 @@
 
 @section('content')
     <div class="pagetitle">
-        <h1>List Of Product</h1>
+        <h1>List Of Category</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('admin.products.index') }}">Home</a></li>
-                <li class="breadcrumb-item active">List Of Product</li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.categories.index') }}">Home</a></li>
+                <li class="breadcrumb-item active">List Of Car</li>
             </ol>
         </nav>
     </div>
@@ -37,11 +37,6 @@
                                 <tr>
                                     <th>id#</th>
                                     <th>Name</th>
-                                    <th>Image</th>
-                                    <th>Category</th>
-                                    <th>Price</th>
-                                    <th>Price Sale</th>
-                                    <th data-type="" data-format="">Is Active</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -51,22 +46,16 @@
                                         <td>{{ $item->id }}</td>
                                         <td>{{ $item->name }}</td>
                                         <td>
-                                            <img src="{{ \Storage::url($item->img) }}" width="100px" alt="">
-                                        </td>
-                                        <td>{{ $item->category->name }}</td>
-                                        <td>{{ $item->price }}</td>
-                                        <td>{{ $item->price_sale }}</td>
-                                        <td> {{ $item->is_active ? 'Active' : 'In Active' }}</td>
-                                        <td class="">
                                             <span>
-                                                <a href="{{ route('admin.products.edit', $item) }}">
+                                                <a href="{{ route('admin.categories.edit', $item) }}">
                                                     <i class="bi bi-pencil-square"></i>
                                                 </a>
                                             </span>
 
                                             <span>
                                                 <form class="d-inline"
-                                                    action="{{ route('admin.products.destroy', $item->id) }}" method="post">
+                                                    action="{{ route('admin.categories.destroy', $item->id) }}"
+                                                    method="post">
                                                     @csrf
                                                     @method('DELETE')
 

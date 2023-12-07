@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
@@ -15,14 +16,20 @@ class ProductController extends Controller
 
     public function index()
     {
-        $data = Product::query()->latest()->paginate(5);
+        $data = Product::query()->with('category')->paginate(5);
 
         return view(self::PATH_VIEW . __FUNCTION__, compact('data'));
     }
 
     public function create()
     {
-        return view(self::PATH_VIEW . __FUNCTION__);
+        $categories = Category::query()
+            ->latest()
+            ->pluck('name', 'id')
+            ->where('is_active', 1)
+            ->all();
+
+        return view(self::PATH_VIEW . __FUNCTION__, compact('categories'));
     }
 
     public function store()
@@ -60,7 +67,13 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        return view(self::PATH_VIEW . __FUNCTION__, compact('product'));
+        $categories = Category::query()
+            ->latest()
+            ->pluck('name', 'id')
+            ->where('is_active', 1)
+            ->all();
+
+        return view(self::PATH_VIEW . __FUNCTION__, compact('product', 'categories'));
     }
 
     public function update(Request $request, Product $product)
@@ -121,6 +134,6 @@ class ProductController extends Controller
 
     public function deleteMany()
     {
-
+        //
     }
 }

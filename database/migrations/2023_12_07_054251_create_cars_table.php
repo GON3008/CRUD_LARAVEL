@@ -4,18 +4,17 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('devices', function (Blueprint $table) {
+        Schema::create('cars', function (Blueprint $table) {
             $table->id();
-            $table->string('name',100);
-            $table->string('serial',100)->unique();
-            $table->string('model',100);
+            $table->foreignId('category_id')->constrained();
+            $table->string('name', 100)->unique();
+            $table->string('brand', 100);
             $table->string('img')->nullable();
             $table->text('description')->nullable();
             $table->boolean('is_active')->default(1);
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('devices');
+        Schema::dropIfExists('cars');
     }
 };

@@ -54,6 +54,17 @@
                 @enderror
             </div>
 
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Category</label>
+                <div class="col-sm-10">
+                    <select class="form-select" id="category_id" aria-label="Default select example">
+                        @foreach ($categories as $id => $name)
+                            <option value="{{ $id }}">{{ $id }} - {{ $name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
             <div class="py-4">
                 <label class="is_active">Is Active:</label>
                 <div class="form-check">
